@@ -3,85 +3,72 @@ include 'test.php';
 
 $id = $_GET['id'] ?? null;
 if (!$id || !is_numeric($id)) {
-    echo "<p class='error'>ID de facture manquant ou invalide.</p>";
+    echo "<p class='error'>ID de client manquant ou invalide.</p>";
     exit;
 }
 
-
-$stmt = $pdo->prepare("
-    SELECT F.*, C.nom, C.prenom 
-    FROM FACTURES F 
-    JOIN CLIENTS C ON F.id_client = C.id_client 
-    WHERE id_facture = ?
-");
+$stmt = $pdo->prepare("SELECT * FROM CLIENTS WHERE id_client = ?");
 $stmt->execute([$id]);
-$facture = $stmt->fetch();
+$client = $stmt->fetch();
 
-if (!$facture) {
-    echo "<p class='error'>Facture introuvable.</p>";
+if (!$client) {
+    echo "<p class='error'>Client introuvable.</p>";
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("
-        UPDATE FACTURES 
-        SET montant = ?, produits = ?, quantite = ? 
-        WHERE id_facture = ?
+        UPDATE CLIENTS 
+        SET nom = ?, prenom = ?, sexe = ?, date_naissance = ? 
+        WHERE id_client = ?
     ");
     $stmt->execute([
-            $_POST['montant'],
-            $_POST['produits'],
-            $_POST['quantite'],
+            $_POST['nom'],
+            $_POST['prenom'],
+            $_POST['sexe'],
+            $_POST['date_naissance'],
             $id
     ]);
 
-    echo "<p class='success'>La facture a été mise à jour avec succès.</p>";
+    echo "<p class='success'>Le client a été mis à jour avec succès.</p>";
 
-
-
-
-
-    $stmt = $pdo->prepare("
-        SELECT F.*, C.nom, C.prenom 
-        FROM FACTURES F 
-        JOIN CLIENTS C ON F.id_client = C.id_client 
-        WHERE id_facture = ?
-    ");
+    $stmt = $pdo->prepare("SELECT * FROM CLIENTS WHERE id_client = ?");
     $stmt->execute([$id]);
-    $facture = $stmt->fetch();
+    $client = $stmt->fetch();
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Modifier une facture</title>
+    <title>Modifier un client</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h2>Modifier une facture</h2>
+<h2>Modifier un client</h2>
 
+<form method="POST" class="form-client">
+    <label for="nom">Nom :</label>
+    <input type="text" name="nom" id="nom" value="<?= $client['nom'] ?>" required>
 
-<p><strong>Client :</strong> <?= htmlspecialchars($facture['nom'] . ' ' . $facture['prenom']) ?></p>
-<p><strong>Date de création :</strong> <?= htmlspecialchars($facture['date_creation']) ?></p>
+    <label for="prenom">Prénom :</label>
+    <input type="text" name="prenom" id="prenom" value="<?= $client['prenom'] ?>" required>
 
+    <label for="sexe">Sexe :</label>
+    <select name="sexe" id="sexe" required>
+        <option value="H" <?= $client['sexe'] === 'H' ? 'selected' : '' ?>>Homme</option>
+        <option value="F" <?= $client['sexe'] === 'F' ? 'selected' : '' ?>>Femme</option>
+    </select>
 
-<form method="POST" class="form-facture">
-    <label for="montant">Montant (€) :</label>
-    <input type="number" step="0.01" name="montant" id="montant" value="<?= htmlspecialchars($facture['montant']) ?>" required>
-
-    <label for="produits">Produits :</label>
-    <textarea name="produits" id="produits" required><?= htmlspecialchars($facture['produits']) ?></textarea>
-
-    <label for="quantite">Quantité :</label>
-    <input type="number" name="quantite" id="quantite" value="<?= htmlspecialchars($facture['quantite']) ?>" required>
+    <label for="date_naissance">Date de naissance :</label>
+    <input type="date" name="date_naissance" id="date_naissance" value="<?= $client['date_naissance'] ?>" required>
 
     <button type="submit" class="btn">Mettre à jour</button>
 </form>
 
 <div class="actions">
     <a><br></a>
-    <a href="list_factures.php" class="btn btn-primary">Retour à la liste des factures</a>
+    <a href="list_clients.php" class="btn btn-primary">Retour à la liste des clients</a>
 </div>
 </body>
 </html>

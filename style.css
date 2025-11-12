@@ -21,7 +21,7 @@ input, select {
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: #4cafa0;
     color: white;
     border: none;
     padding: 10px;
@@ -29,11 +29,11 @@ input, select {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #455aa0;
 }
 
 .success {
-    color: green;
+    color: #00807c;
     margin-top: 20px;
 }
 textarea {
@@ -97,7 +97,7 @@ input, select {
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: #4caf9d;
     color: white;
     border: none;
     padding: 10px;
@@ -105,11 +105,11 @@ input, select {
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #4557a0;
 }
 
 .success {
-    color: green;
+    color: #006680;
     margin-top: 20px;
 }
 textarea {

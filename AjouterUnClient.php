@@ -9,7 +9,6 @@
 <body>
 <h2>Ajouter un client</h2>
 
-<!-- Formulaire d'ajout de client -->
 <form method="POST" class="form-client">
     <label for="nom">Nom :</label>
     <input type="text" name="nom" id="nom" placeholder="Nom" required>
@@ -30,14 +29,14 @@
     <button type="submit" class="btn">Enregistrer</button>
 </form>
 
-<!-- Lien vers la liste des clients -->
+
 <div class="actions">
     <a><br></a>
     <a href="list_clients.php" class="btn btn-primary">Voir la liste des clients</a>
 </div>
 
 <?php
-// Traitement du formulaire
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("
         INSERT INTO CLIENTS (nom, prenom, sexe, date_naissance) 

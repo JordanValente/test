@@ -25,10 +25,10 @@
     <input type="number" step="0.01" name="montant" id="montant" placeholder="Montant en euros" required>
 
     <label for="produits">Produits :</label>
-    <textarea name="produits" id="produits" placeholder="Description des produits" required></textarea>
+    <textarea name="produits" id="produits" placeholder="Description" required></textarea>
 
     <label for="quantite">Quantité :</label>
-    <input type="number" name="quantite" id="quantite" placeholder="Quantité" required>
+    <input type="number" name="quantite" id="quantite" placeholder="Quantite" required>
 
     <button type="submit" class="btn">Enregistrer la facture</button>
 </form>

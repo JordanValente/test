@@ -9,14 +9,12 @@
 <body>
 <h2>Liste des factures</h2>
 
-<!-- Liens d'action -->
 <div class="actions">
     <a href="AjouterUnClient.php" class="btn btn-primary">Ajouter un client</a>
     <a href="AjouterFacture.php" class="btn btn-warning">Ajouter une facture</a>
     <a href="list_clients.php" class="btn btn-primary">Voir la liste des clients</a>
 </div>
 
-<!-- Formulaire de recherche -->
 <form method="GET" class="filter-form">
     <label for="id_client">Client :</label>
     <select name="id_client" id="id_client">
@@ -31,10 +29,10 @@
     </select>
 
     <label for="date_debut">Du :</label>
-    <input type="date" name="date_debut" id="date_debut" value="<?= htmlspecialchars($_GET['date_debut'] ?? '') ?>">
+    <input type="date" name="date_debut" id="date_debut" value="<?= $_GET['date_debut'] ?? '' ?>">
 
     <label for="date_fin">Au :</label>
-    <input type="date" name="date_fin" id="date_fin" value="<?= htmlspecialchars($_GET['date_fin'] ?? '') ?>">
+    <input type="date" name="date_fin" id="date_fin" value="<?= $_GET['date_fin'] ?? '' ?>">
 
     <button type="submit" class="btn">Rechercher</button>
 </form>
@@ -91,8 +89,8 @@ if (empty($factures)) {
                 <td>{$facture['nom']} {$facture['prenom']}</td>
                 <td>{$facture['date_creation']}</td>
                 <td>
-                    <a href='modifier.php?id={$facture['id_facture']}' class='btn btn-sm btn-info'>Modifier</a>
-                    <a href='supprimer.php?id={$facture['id_facture']}' class='btn btn-sm btn-danger' onclick=\"return confirm('Voulez-vous vraiment supprimer cette facture ?');\">Supprimer</a>
+                    <a href='modifierfacture.php?id={$facture['id_facture']}' class='btn btn-sm btn-info'>Modifier</a>
+                    <a href='supprimerfacture.php?id={$facture['id_facture']}' class='btn btn-sm btn-danger' onclick=\"return confirm('Voulez-vous vraiment supprimer cette facture ?');\">Supprimer</a>
                 </td>
               </tr>";
     }
